@@ -1,0 +1,27 @@
+<Window x:Class="FileChangeMonitor.Views.WriteStateWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:FileChangeMonitor.Views" 
+        d:DataContext="{d:DesignInstance Type=local:WriteStateViewModel}"
+        mc:Ignorable="d"
+        Title="Compile a directory state" Height="313" Width="523">
+    <Grid Margin="5">
+        <Grid Height="48" VerticalAlignment="Top">
+            <TextBlock VerticalAlignment="Top" Text="Select a directory to compile" Padding="3"/>
+            <TextBox Text="{Binding Directory, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" HorizontalAlignment="Stretch" Padding="4" Margin="0,22,31,0"/>
+            <Button Command="{Binding BrowseTargetCommand, Mode=OneTime}" HorizontalAlignment="Right" VerticalAlignment="Top" Height="26" Width="26" Content="..." Margin="0,22,0,0"/>
+        </Grid>
+        <Grid Height="48" VerticalAlignment="Top" Margin="0,53,0,0">
+            <TextBlock VerticalAlignment="Top" Padding="3"><Run Text="Select the compiled"/><Run Text="-"/><Run Text="state output path"/></TextBlock>
+            <TextBox Text="{Binding OutputFile, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" HorizontalAlignment="Stretch" Padding="4" Margin="0,22,31,0"/>
+            <Button Command="{Binding BrowseOutputCommand, Mode=OneTime}" HorizontalAlignment="Right" VerticalAlignment="Top" Height="26" Width="26" Content="..." Margin="0,22,0,0"/>
+        </Grid>
+
+        <TextBlock Text="Depending on how large the selected directory (at the top) is, compiling may take a while" Margin="0,106,0,109"/>
+        <ProgressBar IsIndeterminate="{Binding IsCompiling, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Bottom" Margin="0,0,0,84" Height="20"/>
+
+        <Button Command="{Binding CompileCommand, Mode=OneTime}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Height="80" Content="Compile" FontSize="24" FontWeight="Bold"/>
+    </Grid>
+</Window>

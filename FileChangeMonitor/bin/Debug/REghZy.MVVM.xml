@@ -1,0 +1,341 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>REghZy.MVVM</name>
+    </assembly>
+    <members>
+        <member name="T:REghZy.MVVM.Commands.BaseRelayCommand">
+            <summary>
+            A base relay command class, that implements ICommand, and also has a simple
+            implementation for dealing with the <see cref="E:REghZy.MVVM.Commands.BaseRelayCommand.CanExecuteChanged"/> event handler
+            </summary>
+        </member>
+        <member name="F:REghZy.MVVM.Commands.BaseRelayCommand.canExecute">
+            <summary>
+            True if command is executing, false otherwise
+            </summary>
+        </member>
+        <member name="M:REghZy.MVVM.Commands.BaseRelayCommand.#ctor(System.Func{System.Boolean})">
+            <summary>
+            Initializes a new instance of <see cref="T:REghZy.MVVM.Commands.BaseRelayCommand"/>
+            </summary>
+            <param name="canExecute">The execution status logic</param>
+        </member>
+        <member name="E:REghZy.MVVM.Commands.BaseRelayCommand.CanExecuteChanged">
+            <summary>
+            Raised when <see cref="M:REghZy.MVVM.Commands.BaseRelayCommand.RaiseCanExecuteChanged"/> is called
+            </summary>
+        </member>
+        <member name="M:REghZy.MVVM.Commands.BaseRelayCommand.CanExecute(System.Object)">
+            <summary>
+            Determines whether this <see cref="T:REghZy.MVVM.Commands.BaseRelayCommand"/> can execute in its current state
+            </summary>
+            <param name="parameter">
+            Data used by the command. This may be null, if the command does not require a parameter
+            </param>
+            <returns>
+            True if the command can be executed, otherwise false if it cannot be executed
+            </returns>
+        </member>
+        <member name="M:REghZy.MVVM.Commands.BaseRelayCommand.RaiseCanExecuteChanged">
+            <summary>
+            Method used to raise the <see cref="E:REghZy.MVVM.Commands.BaseRelayCommand.CanExecuteChanged"/> event to indicate that the
+            return value of the <see cref="M:REghZy.MVVM.Commands.BaseRelayCommand.CanExecute(System.Object)"/> method likely changed
+            <para>
+            This can be called from a view model, which, for example, may cause a
+            button to become greyed out (disabled) if <see cref="M:REghZy.MVVM.Commands.BaseRelayCommand.CanExecute(System.Object)"/> returns false
+            </para>
+            </summary>
+        </member>
+        <member name="T:REghZy.MVVM.Commands.RelayCommand">
+            <summary>
+            A simple relay command, which does not take any parameters
+            </summary>
+        </member>
+        <member name="F:REghZy.MVVM.Commands.RelayCommand.execute">
+            <summary>
+            Creates a new command that can always execute
+            </summary>
+        </member>
+        <member name="M:REghZy.MVVM.Commands.RelayCommand.#ctor(System.Action,System.Func{System.Boolean})">
+            <summary>
+            Initializes a new instance of <see cref="T:REghZy.MVVM.Commands.RelayCommand"/>
+            </summary>
+            <param name="execute">The execution logic.</param>
+            <param name="canExecute">The execution status logic</param>
+        </member>
+        <member name="M:REghZy.MVVM.Commands.RelayCommand.Execute(System.Object)">
+            <summary>
+            Executes the <see cref="T:REghZy.MVVM.Commands.RelayCommand"/> on the current command target
+            </summary>
+            <param name="parameter">
+            Extra data as the command's parameter. This can be null
+            </param>
+        </member>
+        <member name="T:REghZy.MVVM.Commands.RelayCommandParam`1">
+            <summary>
+            A relay command, that allows passing a parameter to the command
+            </summary>
+        </member>
+        <member name="F:REghZy.MVVM.Commands.RelayCommandParam`1.execute">
+            <summary>
+            Creates a new command that can always execute.
+            </summary>
+        </member>
+        <member name="M:REghZy.MVVM.Commands.RelayCommandParam`1.#ctor(System.Action{`0},System.Func{System.Boolean})">
+            <summary>
+            Initializes a new instance of <see cref="T:REghZy.MVVM.Commands.RelayCommand"/>.
+            </summary>
+            <param name="execute">The execution logic.</param>
+            <param name="canExecute">The execution status logic.</param>
+        </member>
+        <member name="M:REghZy.MVVM.Commands.RelayCommandParam`1.Execute(System.Object)">
+            <summary>
+            Executes the <see cref="T:REghZy.MVVM.Commands.RelayCommand"/> on the current command target
+            </summary>
+            <param name="parameter">
+            Extra data as the command's parameter. Can be null
+            </param>
+        </member>
+        <member name="T:REghZy.MVVM.IoC.ServiceNotFoundException">
+            <summary>
+            An exception thrown if a Service couldn't be found by IoC
+            </summary>
+        </member>
+        <member name="P:REghZy.MVVM.IoC.ServiceNotFoundException.TargetType">
+            <summary>
+            The Service type that couldn't be found
+            </summary>
+        </member>
+        <member name="T:REghZy.MVVM.IoC.SimpleIoC">
+            <summary>
+            A simple IoC container, containing ViewModels and Services
+            <para>
+            You could create a private static instance of this class, and use public static wrapper methods
+            </para>
+            </summary>
+        </member>
+        <member name="M:REghZy.MVVM.IoC.SimpleIoC.GetViewModel``1">
+            <summary>
+            Gets the ViewModel instance of the given type
+            </summary>
+            <typeparam name="T">The ViewModel type</typeparam>
+            <returns>The instance of the ViewModel</returns>
+            <exception cref="T:REghZy.MVVM.IoC.ViewModelNotFoundException">Thrown if there isn't a ViewModel of that type</exception>
+            <exception cref="T:System.InvalidCastException">Thrown if the target ViewModel type doesn't match the actual ViewModel type (somehow)</exception>
+        </member>
+        <member name="M:REghZy.MVVM.IoC.SimpleIoC.GetViewModel(System.Type)">
+            <summary>
+            Gets the ViewModel instance of the given type
+            </summary>
+            <typeparam name="T">The ViewModel type</typeparam>
+            <returns>The instance of the ViewModel</returns>
+            <exception cref="T:REghZy.MVVM.IoC.ViewModelNotFoundException">Thrown if there isn't a ViewModel of that type</exception>
+            <exception cref="T:System.InvalidCastException">Thrown if the target ViewModel type doesn't match the actual ViewModel type (somehow)</exception>
+        </member>
+        <member name="M:REghZy.MVVM.IoC.SimpleIoC.GetService``1">
+            <summary>
+            Gets the service instance of the given generic type
+            </summary>
+            <typeparam name="T">The service type (typically the base type)</typeparam>
+            <returns>The instance of the service</returns>
+            <exception cref="T:REghZy.MVVM.IoC.ServiceNotFoundException">Thrown if there isn't a ViewModel of that type</exception>
+            <exception cref="T:System.InvalidCastException">Thrown if the target service type doesn't match the actual service type</exception>
+        </member>
+        <member name="M:REghZy.MVVM.IoC.SimpleIoC.GetService(System.Type)">
+            <summary>
+            Gets the service instance of the given generic type
+            </summary>
+            <typeparam name="T">The service type (typically the base type)</typeparam>
+            <returns>The instance of the service</returns>
+            <exception cref="T:REghZy.MVVM.IoC.ServiceNotFoundException">Thrown if there isn't a ViewModel of that type</exception>
+            <exception cref="T:System.InvalidCastException">Thrown if the target service type doesn't match the actual service type</exception>
+        </member>
+        <member name="M:REghZy.MVVM.IoC.SimpleIoC.SetViewModel``1(``0)">
+            <summary>
+            Registers (or replaces) a viewmode of the given generic type
+            </summary>
+            <typeparam name="T">The ViewModel type</typeparam>
+            <param name="viewModel"></param>
+        </member>
+        <member name="M:REghZy.MVVM.IoC.SimpleIoC.SetViewModel(System.Type,REghZy.MVVM.ViewModels.BaseViewModel)">
+            <summary>
+            Registers (or replaces) a viewmode of the given generic type
+            </summary>
+            <param name="viewModel"></param>
+        </member>
+        <member name="M:REghZy.MVVM.IoC.SimpleIoC.SetService``1(``0)">
+            <summary>
+            Registers (or replaces) the given service of the given generic type
+            </summary>
+            <typeparam name="T">The service type (typically an interface, for an API service)</typeparam>
+            <param name="service"></param>
+        </member>
+        <member name="M:REghZy.MVVM.IoC.SimpleIoC.SetService(System.Type,System.Object)">
+            <summary>
+            Registers (or replaces) the given service of the given generic type
+            </summary>
+            <typeparam name="T">The service type (typically an interface, for an API service)</typeparam>
+            <param name="service"></param>
+        </member>
+        <member name="M:REghZy.MVVM.IoC.SimpleIoC.HasViewModel``1">
+            <summary>
+            Returns whether this IoC manager contains a given ViewModel
+            </summary>
+            <typeparam name="T">The viewmodel type</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:REghZy.MVVM.IoC.SimpleIoC.HasViewModel(System.Type)">
+            <summary>
+            Returns whether this IoC manager contains a given ViewModel
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:REghZy.MVVM.IoC.SimpleIoC.HasService``1">
+            <summary>
+            Returns whether this IoC manager contains a given service
+            </summary>
+            <typeparam name="T">The service type</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:REghZy.MVVM.IoC.SimpleIoC.HasService(System.Type)">
+            <summary>
+            Returns whether this IoC manager contains a given service
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:REghZy.MVVM.IoC.ViewModelNotFoundException">
+            <summary>
+            An exception thrown if a ViewModel couldn't be found by IoC
+            </summary>
+        </member>
+        <member name="P:REghZy.MVVM.IoC.ViewModelNotFoundException.TargetType">
+            <summary>
+            The ViewModel type that couldn't be found
+            </summary>
+        </member>
+        <member name="T:REghZy.MVVM.ViewModels.BaseViewModel">
+            <summary>
+            An abstract class that implements <see cref="T:System.ComponentModel.INotifyPropertyChanged"/>, allowing data binding between a ViewModel and a View, 
+            along with some helper function to, for example, run an <see cref="T:System.Action"/> before or after the PropertyRaised event has been risen
+            <para>
+                This class should normally be inherited by a ViewModel, such as a MainViewModel for the main view
+            </para>
+            </summary>
+        </member>
+        <member name="M:REghZy.MVVM.ViewModels.BaseViewModel.RaisePropertyChanged``1(``0@,``0,System.String)">
+            <summary>
+            Raises a propertychanged event, allowing the view to be updated. Pass in your private property, new value, 
+            can also pass the property name but that's done for you.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="property">The private field that is used for "setting". This can</param>
+            <param name="newValue">The new value of this property</param>
+            <param name="propertyName">dont need to specify this, but the name of the property/field</param>
+        </member>
+        <member name="M:REghZy.MVVM.ViewModels.BaseViewModel.RaisePropertyChanged(System.String)">
+            <summary>
+            Raises a propertychanged event, allowing the view to be updated. Pass in your private property, new value,
+            can also pass the property name but that's done for you.
+            </summary>
+            <param name="property">The private field that is used for "setting". This can</param>
+            <param name="newValue">The new value of this property</param>
+            <param name="propertyName">dont need to specify this, but the name of the property/field</param>
+        </member>
+        <member name="M:REghZy.MVVM.ViewModels.BaseViewModel.RaisePropertyChanged``1(``0@,``0,System.Boolean,System.String)">
+            <summary>
+            If checkEquality is true, and the propery and newValue are equal, then nothing will happen.
+            Otherwise, the property changed event will be raised
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="property">A reference to the private field, whose value may be replaced with newValue</param>
+            <param name="newValue">The possible new value of this property</param>
+            <param name="propertyName">Property name. This will be auto-filled by the compiler</param>
+        </member>
+        <member name="M:REghZy.MVVM.ViewModels.BaseViewModel.RaisePropertyChangedWithCallback``1(``0@,``0,System.Action{``0},System.Action{``0},System.String)">
+            <summary>
+            Calls the given pre-property-changed callback, raises the property changed event, and invokes the given post-property-changed callback
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="property">The private field that is used for "setting"</param>
+            <param name="newValue">The new value of this property</param>
+            <param name="postChangedCallback">The method that gets called after the property changed, and contains the new value as a parameter</param>
+            <param name="preChangedCallback">The method that gets called before the property changed, and contains the old value as a parameter</param>
+            <param name="propertyName">Property name. This will be auto-filled by the compiler</param>
+        </member>
+        <member name="M:REghZy.MVVM.ViewModels.BaseViewModel.RaisePropertyChangedWithCallback(System.Action,System.String)">
+            <summary>
+            Calls the given pre-property-changed callback, raises the property changed event, and invokes the given post-property-changed callback
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="property">The private field that is used for "setting"</param>
+            <param name="newValue">The new value of this property</param>
+            <param name="callback">The method that gets called after the property changed, and contains the new value as a parameter</param>
+            <param name="preChangedCallback">The method that gets called before the property changed, and contains the old value as a parameter</param>
+            <param name="propertyName">Property name. This will be auto-filled by the compiler</param>
+        </member>
+        <member name="M:REghZy.MVVM.ViewModels.BaseViewModel.RaisePropertyChangedWithCallback``1(``0@,``0,System.Boolean,System.Action{``0},System.Action{``0},System.String)">
+            <summary>
+            If checkEquality is true, and the propery and newValue are equal, then nothing will happen.
+            Otherwise, the given pre-property-changed callback will be invoked, then the property changed
+            event will be raised, and then the post-property-changed callback will be raised
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="property">the private field that is used for "setting"</param>
+            <param name="newValue">the new value of this property</param>
+            <param name="postChangedCallback">The method that gets called after the property changed, and contains the new value as a parameter</param>
+            <param name="preChangedCallback">The method that gets called before the property changed, and contains the old value as a parameter</param>
+            <param name="propertyName">Property name. This will be auto-filled by the compiler</param>
+        </member>
+        <member name="M:REghZy.MVVM.ViewModels.BaseViewModel.RaisePropertyChangedWithCallback``1(``0@,``0,System.Action,System.Action,System.String)">
+            <summary>
+            Calls the given pre-property-changed callback, raises the property changed event, and invokes the given post-property-changed callback
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="property">The private field that is used for "setting"</param>
+            <param name="newValue">The new value of this property</param>
+            <param name="postChangedCallback">The method that gets called after the property changed, and contains the new value as a parameter</param>
+            <param name="preChangedCallback">The method that gets called before the property changed, and contains the old value as a parameter</param>
+            <param name="propertyName">Property name. This will be auto-filled by the compiler</param>
+        </member>
+        <member name="M:REghZy.MVVM.ViewModels.BaseViewModel.RaisePropertyChangedWithCallback``1(``0@,``0,System.Boolean,System.Action,System.Action,System.String)">
+            <summary>
+            If checkEquality is true, and the propery and newValue are equal, then nothing will happen.
+            Otherwise, the given pre-property-changed callback will be invoked, then the property changed
+            event will be raised, and then the post-property-changed callback will be raised
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="property">the private field that is used for "setting"</param>
+            <param name="newValue">the new value of this property</param>
+            <param name="postChangedCallback">The method that gets called after the property changed, and contains the new value as a parameter</param>
+            <param name="preChangedCallback">The method that gets called before the property changed, and contains the old value as a parameter</param>
+            <param name="propertyName">Property name. This will be auto-filled by the compiler</param>
+        </member>
+        <member name="T:REghZy.MVVM.ViewModels.Binder">
+            <summary>
+            A class that helps with binding properties between view models
+            </summary>
+        </member>
+        <member name="M:REghZy.MVVM.ViewModels.Binder.Bind(REghZy.MVVM.ViewModels.BaseViewModel,System.String,REghZy.MVVM.ViewModels.BaseViewModel,System.String)">
+            <summary>
+            Binds a property from 'fromObj', and sets the property in 'toObj'
+            <para>
+            Binding both ways is supported
+            </para>
+            </summary>
+            <param name="obj"></param>
+            <param name="property"></param>
+            <param name="targetObj"></param>
+            <param name="targetProperty"></param>
+        </member>
+        <member name="T:REghZy.MVVM.Views.BaseView`1">
+            <summary>
+            An interface that a view can implement for easy access to their ViewModel
+            <para>
+            This can just be used for convenience, rather than having to cast a view's DataContext
+            </para>
+            </summary>
+            <typeparam name="ViewModel">The ViewModel class that extends <see cref="T:REghZy.MVVM.ViewModels.BaseViewModel"/></typeparam>
+        </member>
+    </members>
+</doc>
